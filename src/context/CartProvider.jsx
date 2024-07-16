@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-const CartContext = createContext();
+export const CartContext = createContext();
 
 const CartProvider = (props) => {
   const cartContext = {
