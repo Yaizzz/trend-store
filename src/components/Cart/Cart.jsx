@@ -5,6 +5,7 @@ import CartItem from "./CartItem";
 import "./Cart.css";
 const Cart = ({ onClose }) => {
   const {items, totalAmount} = useContext(CartContext)
+  const hasItems = items.length >0
   const cartItems = (
     <ul className="cart-items">
       {items.map((item) => (
@@ -25,10 +26,10 @@ const Cart = ({ onClose }) => {
         <span>Toplam Değer</span>
         <span>{totalAmount.toFixed(2)}₺</span>
       </div>
-      <div className="actions">
+      {hasItems && <div className="actions">
         <button className="cart-order">Sipariş Ver</button>
         <button className="cart-clear">Temizle</button>
-      </div>
+      </div>}
     </Offcanvas>
   );
 };

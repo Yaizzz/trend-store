@@ -30,7 +30,12 @@ const cartReducer = (state, action) => {
         totalAmount: state.totalAmount + action.item.price * action.item.amount,
       };
     case "REMOVE":
-      return state;
+      const filteredItems = state.items.filter((item) => item.id !== action.id)
+      const itemToRemove = state.items.find((item)=> item.id === action.id)
+      return {
+        items:filteredItems,
+        totalAmount: state.totalAmount - itemToRemove.amount * (itemToRemove.price)
+      };
     case "CLEAR":
       return state;
     default:
@@ -54,7 +59,9 @@ const CartProvider = ({ children }) => {
     addItem: (item) => {
       dispatchCartAction({ type: "ADD", item });
     },
-    removeItem: () => {},
+    removeItem: (id) => {
+      dispatchCartAction({ type: "REMOVE", id });
+    },
     clearItem: () => {},
   };
   return (
