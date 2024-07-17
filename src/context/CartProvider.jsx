@@ -2,14 +2,26 @@ import { createContext, useReducer } from "react";
 
 export const CartContext = createContext();
 
+//state default olan değer action ise productitemdan gelen basılan item değeri
 const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD":
+      // eslint-disable-next-line no-case-declarations
+      const existingCartItemIndex = state.items.findIndex((item) => {
+        item.id === action.item.id;
+      });
+
+      // eslint-disable-next-line no-case-declarations
       let updatedItems = [...state.items];
+
+      if(existingCartItemIndex !==1){
+        updatedItems[existingCartItemIndex]
+      }
+
       updatedItems = [...state.items, action.item];
       return {
         items: updatedItems,
-        totalAmount: state.totalAmount + action.item.price * action.item.amount
+        totalAmount: state.totalAmount + action.item.price * action.item.amount,
       };
     case "REMOVE":
       return state;
@@ -25,7 +37,7 @@ const defaultCartState = {
   totalAmount: 0,
 };
 
-const CartProvider = (props) => {
+const CartProvider = ({children}) => {
   const [cartState, dispatchCartAction] = useReducer(
     cartReducer,
     defaultCartState
@@ -41,7 +53,7 @@ const CartProvider = (props) => {
   };
   return (
     <CartContext.Provider value={cartContext}>
-      {props.children}
+      {children}
     </CartContext.Provider>
   );
 };
