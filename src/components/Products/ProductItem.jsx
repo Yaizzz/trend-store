@@ -5,8 +5,8 @@ import "./ProductItem.css";
 import Rating from "./Rating";
 const ProductItem = ({ product }) => {
   const { name, description, img, price } = product;
-  const { items, addItem, totalAmount } = useContext(CartContext);
-  console.log(totalAmount);
+  const { items, addItem, } = useContext(CartContext);
+  console.log(items);
   return (
     <Card>
       <img src={img} alt="" />

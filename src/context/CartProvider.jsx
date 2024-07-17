@@ -6,6 +6,7 @@ export const CartContext = createContext();
 const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD":
+      //finindex ilgili ürün varsa o index numarasını döner yoksa -1 döner
       // eslint-disable-next-line no-case-declarations
       const existingCartItemIndex = state.items.findIndex((item) => {
         item.id === action.item.id;
@@ -14,11 +15,17 @@ const cartReducer = (state, action) => {
       // eslint-disable-next-line no-case-declarations
       let updatedItems = [...state.items];
 
-      if(existingCartItemIndex !==1){
-        updatedItems[existingCartItemIndex]
+      if (existingCartItemIndex !== -1) {
+        updatedItems[existingCartItemIndex] = {
+          ...state.items[existingCartItemIndex],
+          amount:
+            state.items[existingCartItemIndex].amount + action.items.amount,
+        };
+      } else {
+        // -1 dönerse
+        updatedItems = [...state.items, action.item];
       }
 
-      updatedItems = [...state.items, action.item];
       return {
         items: updatedItems,
         totalAmount: state.totalAmount + action.item.price * action.item.amount,
@@ -37,7 +44,7 @@ const defaultCartState = {
   totalAmount: 0,
 };
 
-const CartProvider = ({children}) => {
+const CartProvider = ({ children }) => {
   const [cartState, dispatchCartAction] = useReducer(
     cartReducer,
     defaultCartState
@@ -52,9 +59,7 @@ const CartProvider = ({children}) => {
     clearItem: () => {},
   };
   return (
-    <CartContext.Provider value={cartContext}>
-      {children}
-    </CartContext.Provider>
+    <CartContext.Provider value={cartContext}>{children}</CartContext.Provider>
   );
 };
 
