@@ -4,7 +4,7 @@ import { CartContext } from "../../context/CartProvider";
 import CartItem from "./CartItem";
 import "./Cart.css";
 const Cart = ({ onClose }) => {
-  const {items, totalAmount} = useContext(CartContext)
+  const {items, totalAmount, clearItem} = useContext(CartContext)
   const hasItems = items.length >0
   const cartItems = (
     <ul className="cart-items">
@@ -28,7 +28,7 @@ const Cart = ({ onClose }) => {
       </div>
       {hasItems && <div className="actions">
         <button className="cart-order">Sipariş Ver</button>
-        <button className="cart-clear">Temizle</button>
+        <button className="cart-clear" onClick={clearItem}>Temizle</button>
       </div>}
     </Offcanvas>
   );
