@@ -7,12 +7,11 @@ const cartReducer = (state, action) => {
   switch (action.type) {
     case "ADD":
       //finindex ilgili ürün varsa o index numarasını döner yoksa -1 döner
-      // eslint-disable-next-line no-case-declarations
-      const existingCartItemIndex = state.items.findIndex((item) => {
-        item.id === action.item.id;
-      });
 
-      // eslint-disable-next-line no-case-declarations
+      const existingCartItemIndex = state.items.findIndex(
+        (item) => item.id === action.item.id
+      );
+
       let updatedItems = [...state.items];
 
       if (existingCartItemIndex !== -1) {
