@@ -11,7 +11,7 @@ const CartItem = ({product}) => {
           <b>{product.name}</b>
           <div>
             <span>₺{product.price} x</span>
-            <span>{product.amount}</span>
+            <span className="cart-item-amount">{product.amount}</span>
           </div>
         </div>
         <a href="/" className="cart-item-remove">
