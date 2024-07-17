@@ -18,7 +18,7 @@ const cartReducer = (state, action) => {
         updatedItems[existingCartItemIndex] = {
           ...state.items[existingCartItemIndex],
           amount:
-            state.items[existingCartItemIndex].amount + action.items.amount,
+            state.items[existingCartItemIndex].amount + action.item.amount,
         };
       } else {
         // -1 dönerse
